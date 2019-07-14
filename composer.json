@@ -1,0 +1,22 @@
+{
+    "name": "backendtea/easy-test",
+    "description": "Easy testing for PHP",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Gert de Pagter",
+            "email": "BackEndTea@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2",
+        "symfony/finder": "^4.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "EasyTest\\": "src/"
+        },
+        "files": ["src/functions.php"]
+    }
+}
