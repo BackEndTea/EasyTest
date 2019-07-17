@@ -1,14 +1,12 @@
 <?php
 
+declare(strict_types=1);
 
 namespace EasyTest\Event;
 
-
 class AddBeforeEach
 {
-    /**
-     * @var callable
-     */
+    /** @var callable */
     private $beforeEach;
 
     public function __construct(callable $beforeEach)
@@ -20,6 +18,4 @@ class AddBeforeEach
     {
         return $this->beforeEach;
     }
-
-
 }

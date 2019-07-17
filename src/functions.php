@@ -18,19 +18,24 @@ $dispatcher->addSubscriber(new TestStartSubscriber());
 
 function describe(string $name, callable $suite): void
 {
-    echo $name ."\n";
+    echo $name . "\n";
     $suite();
 }
 
-function it(string $name, callable $test) : void
+function it(string $name, callable $test): void
 {
-    echo "    ".$name ."\n";
-    $dispatcher= EventHandler::instance();
+    echo '    ' . $name . "\n";
+    $dispatcher = EventHandler::instance();
     $dispatcher->dispatch(new TestStart());
     $test();
     $dispatcher->dispatch(new TestFinished());
 }
-function expect($expected): Expectable {
+
+/**
+ * @param mixed $expected
+ */
+function expect($expected): Expectable
+{
     return new Expect($expected);
 }
 

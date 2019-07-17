@@ -1,0 +1,26 @@
+<ruleset>
+    <arg name="basepath" value="."/>
+    <arg name="extensions" value="php"/>
+    <arg name="parallel" value="80"/>
+    <arg name="cache" value=".build/.phpcs-cache"/>
+    <arg name="colors"/>
+
+    <!-- Ignore warnings, show progress of the run and show sniff names -->
+    <arg value="nps"/>
+
+    <!-- Directories to be checked -->
+    <file>src</file>
+
+    <!-- Include full Doctrine Coding Standard -->
+    <rule ref="Doctrine">
+        <!-- We try and keep closure syntax to a minimum. -->
+        <exclude name="SlevomatCodingStandard.Functions.StaticClosure" />
+        <exclude name="SlevomatCodingStandard.Operators.DisallowEqualOperators" />
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHintSpacing">
+        <properties>
+            <property name="spacesCountBeforeColon" value="0" />
+        </properties>
+    </rule>
+</ruleset>

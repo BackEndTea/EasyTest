@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
 
 namespace EasyTest\Event;
 
-
 use EasyTest\Event\Subscriber\EventSubscriber;
+use function get_class;
 
 class EventHandler
 {
@@ -15,10 +16,8 @@ class EventHandler
      */
     private static $instance;
 
-    /**
-     * @var array<int, array<int, callable>>
-     */
-    private $listeners;
+    /** @var array<string, array<int, callable>> */
+    private $listeners = [];
 
     private function __construct()
     {
@@ -27,9 +26,10 @@ class EventHandler
 
     public static function instance(): self
     {
-        if(self::$instance === null){
+        if (self::$instance === null) {
             self::$instance = new self();
         }
+
         return self::$instance;
     }
 
@@ -57,4 +57,3 @@ class EventHandler
         return $this->listeners[$eventName] ?? [];
     }
 }
-
