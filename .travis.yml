@@ -8,3 +8,7 @@ php:
 
 script:
   - make all
+
+matrix:
+  allow_failures:
+    - nightly
