@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 
+use EasyTest\Event\EventHandler;
 use EasyTest\Event\Listener\TestSuiteStartListener;
+use EasyTest\Event\Subscriber\TestFailureSubscriber;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Finder\Finder;
 
@@ -34,11 +36,14 @@ use Symfony\Component\Finder\Finder;
         ->path($argv[1])
         ->files()
     ;
-
+    $failureSubscriber = new TestFailureSubscriber();
+    EventHandler::instance()->addSubscriber($failureSubscriber);
     foreach ($finder as $file) {
         include_once $file->getPathname();
     }
-
+    if($failureSubscriber->getFailureCount() !== 0) {
+        exit(1);
+    }
 
 })($argv);
 

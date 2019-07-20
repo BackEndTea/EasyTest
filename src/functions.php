@@ -8,8 +8,10 @@ use EasyTest\Event\AddAfterEach;
 use EasyTest\Event\AddBeforeEach;
 use EasyTest\Event\EventHandler;
 use EasyTest\Event\Subscriber\TestStartSubscriber;
+use EasyTest\Event\TestFailed;
 use EasyTest\Event\TestFinished;
 use EasyTest\Event\TestStart;
+use EasyTest\Expect\AssertionFailure;
 use EasyTest\Expect\Expect;
 use EasyTest\Expect\Expectable;
 
@@ -24,10 +26,16 @@ function describe(string $name, callable $suite): void
 
 function it(string $name, callable $test): void
 {
-    echo '    ' . $name . "\n";
+    echo '    ' . $name;
     $dispatcher = EventHandler::instance();
     $dispatcher->dispatch(new TestStart());
-    $test();
+    try {
+        $test();
+    } catch (AssertionFailure $e) {
+        echo "\e[0;31;40m FAILED\n" . $e->getMessage() . "\e[0m\n";
+        $dispatcher->dispatch(new TestFailed());
+    }
+    echo "\n";
     $dispatcher->dispatch(new TestFinished());
 }
 
