@@ -1,7 +1,7 @@
 {
     "name": "backendtea/easy-test",
-    "description": "Easy testing for PHP",
     "type": "library",
+    "description": "Easy testing for PHP",
     "license": "MIT",
     "authors": [
         {
@@ -13,15 +13,23 @@
         "php": "^7.2",
         "symfony/finder": "^4.2"
     },
+    "require-dev": {
+        "doctrine/coding-standard": "^6.0",
+        "phpstan/phpstan": "^0.11.12",
+        "vimeo/psalm": "^3.4"
+    },
+    "config": {
+        "sort-packages": true
+    },
     "autoload": {
         "psr-4": {
             "EasyTest\\": "src/"
         },
-        "files": ["src/functions.php"]
+        "files": [
+            "src/functions.php"
+        ]
     },
-    "require-dev": {
-        "vimeo/psalm": "^3.4",
-        "phpstan/phpstan": "^0.11.12",
-        "doctrine/coding-standard": "^6.0"
-    }
+    "bin": [
+        "bin/easytest"
+    ]
 }
