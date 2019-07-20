@@ -7,16 +7,12 @@ namespace EasyTest;
 use EasyTest\Event\AddAfterEach;
 use EasyTest\Event\AddBeforeEach;
 use EasyTest\Event\EventHandler;
-use EasyTest\Event\Subscriber\TestStartSubscriber;
 use EasyTest\Event\TestFailed;
 use EasyTest\Event\TestFinished;
 use EasyTest\Event\TestStart;
 use EasyTest\Expect\AssertionFailure;
 use EasyTest\Expect\Expect;
 use EasyTest\Expect\Expectable;
-
-$dispatcher = EventHandler::instance();
-$dispatcher->addSubscriber(new TestStartSubscriber());
 
 function describe(string $name, callable $suite): void
 {
