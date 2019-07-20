@@ -9,6 +9,11 @@ php:
 script:
   - make all
 
+install:
+  - export COMPOSER_FLAGS="--prefer-dist --no-interaction"
+  - if [[ $TRAVIS_PHP_VERSION = nightly ]]; then export COMPOSER_FLAGS="$COMOPSER_FLAGS --ignore-platform-reqs"; fi
+  - composer update $COMPOSER_FLAGS
+
 matrix:
   allow_failures:
-    - nightly
+    php: nightly
