@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace EasyTest\Expect;
 
-use function assert;
+use EasyTest\Expect\Expectation\Expectation;
+use EasyTest\Expect\Expectation\ToBeInstanceOf;
+use EasyTest\Expect\Expectation\ToBeTheSameAs;
+use EasyTest\Expect\Expectation\ToEqual;
 
 class Expect implements Expectable
 {
@@ -22,15 +25,15 @@ class Expect implements Expectable
     /** @inheritDoc */
     public function toEqual($expected): Expectable
     {
-        assert($this->actual == $expected);
+        $this->expectThat(new ToEqual($this->actual, $expected));
 
         return $this;
     }
 
     /** @inheritDoc */
-    public function toBeTheSame($expected): Expectable
+    public function toBeTheSameAs($expected): Expectable
     {
-        assert($this->actual === $expected);
+        $this->expectThat(new ToBeTheSameAs($this->actual, $expected));
 
         return $this;
     }
@@ -38,8 +41,15 @@ class Expect implements Expectable
     /** @inheritDoc */
     public function toBeInstanceOf($expected): Expectable
     {
-        assert($this->actual instanceof $expected);
+        $this->expectThat(new ToBeInstanceOf($this->actual, $expected));
 
         return $this;
+    }
+
+    private function expectThat(Expectation $expectation): void
+    {
+        if (! $expectation->matches()) {
+            throw new AssertionFailure($expectation->error());
+        }
     }
 }

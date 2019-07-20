@@ -18,7 +18,7 @@ interface Expectable
      *
      * @param mixed $expected
      */
-    public function toBeTheSame($expected): Expectable;
+    public function toBeTheSameAs($expected): Expectable;
 
     /**
      * instanceof comparison
