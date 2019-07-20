@@ -1,4 +1,5 @@
 # Easy Test
+[![Build Status](https://travis-ci.org/BackEndTea/EasyTest.svg?branch=master)](https://travis-ci.org/BackEndTea/EasyTest)
 
 Easy test is a small php test framework.
 
