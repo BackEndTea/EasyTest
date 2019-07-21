@@ -9,6 +9,7 @@ use EasyTest\Expect\Expectation\ToBeInstanceOf;
 use EasyTest\Expect\Expectation\ToBeTheSameAs;
 use EasyTest\Expect\Expectation\ToEqual;
 use EasyTest\Expect\Expectation\ToThrow;
+use EasyTest\Expect\Expectation\TypeExpectation\ToBeCallable;
 
 class Expect implements Expectable
 {
@@ -50,7 +51,18 @@ class Expect implements Expectable
     /** @inheritDoc */
     public function toThrow($exception): Expectable
     {
+        $this->toBeCallable();
         $this->expectThat(new ToThrow($this->actual, $exception));
+
+        return $this;
+    }
+
+    /**
+     * @psalm-assert callable $this->actual
+     */
+    public function toBeCallable(): Expectable
+    {
+        $this->expectThat(new ToBeCallable($this->actual));
 
         return $this;
     }

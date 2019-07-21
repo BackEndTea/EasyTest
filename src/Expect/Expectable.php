@@ -33,4 +33,9 @@ interface Expectable
      * @param string|object $exception
      */
     public function toThrow($exception): Expectable;
+
+    /**
+     * Is the entry callable.
+     */
+    public function toBeCallable(): Expectable;
 }
