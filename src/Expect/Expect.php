@@ -8,6 +8,7 @@ use EasyTest\Expect\Expectation\Expectation;
 use EasyTest\Expect\Expectation\ToBeInstanceOf;
 use EasyTest\Expect\Expectation\ToBeTheSameAs;
 use EasyTest\Expect\Expectation\ToEqual;
+use EasyTest\Expect\Expectation\ToThrow;
 
 class Expect implements Expectable
 {
@@ -42,6 +43,14 @@ class Expect implements Expectable
     public function toBeInstanceOf($expected): Expectable
     {
         $this->expectThat(new ToBeInstanceOf($this->actual, $expected));
+
+        return $this;
+    }
+
+    /** @inheritDoc */
+    public function toThrow($exception): Expectable
+    {
+        $this->expectThat(new ToThrow($this->actual, $exception));
 
         return $this;
     }

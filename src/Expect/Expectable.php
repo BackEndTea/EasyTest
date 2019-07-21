@@ -26,4 +26,11 @@ interface Expectable
      * @param string|object $expected
      */
     public function toBeInstanceOf($expected): Expectable;
+
+    /**
+     * Does function throw specifed exception
+     *
+     * @param string|object $exception
+     */
+    public function toThrow($exception): Expectable;
 }
