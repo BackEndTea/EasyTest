@@ -13,6 +13,7 @@ use EasyTest\Event\TestStart;
 use EasyTest\Expect\AssertionFailure;
 use EasyTest\Expect\Expect;
 use EasyTest\Expect\Expectable;
+use Throwable;
 
 function describe(string $name, callable $suite): void
 {
@@ -29,6 +30,9 @@ function it(string $name, callable $test): void
         $test();
     } catch (AssertionFailure $e) {
         echo "\e[0;31;40m FAILED\n" . $e->getMessage() . "\e[0m\n";
+        $dispatcher->dispatch(new TestFailed());
+    } catch (Throwable $t) {
+        echo "\e[0;31;40m FAILED\n" . $t->getMessage() . "\e[0m\n";
         $dispatcher->dispatch(new TestFailed());
     }
     echo "\n";

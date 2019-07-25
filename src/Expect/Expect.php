@@ -25,34 +25,34 @@ class Expect implements Expectable
     }
 
     /** @inheritDoc */
-    public function toEqual($expected): Expectable
+    public function toEqual($expected, string $message = ''): Expectable
     {
-        $this->expectThat(new ToEqual($this->actual, $expected));
+        $this->expectThat(new ToEqual($this->actual, $expected), $message);
 
         return $this;
     }
 
     /** @inheritDoc */
-    public function toBeTheSameAs($expected): Expectable
+    public function toBeTheSameAs($expected, string $message = ''): Expectable
     {
-        $this->expectThat(new ToBeTheSameAs($this->actual, $expected));
+        $this->expectThat(new ToBeTheSameAs($this->actual, $expected), $message);
 
         return $this;
     }
 
     /** @inheritDoc */
-    public function toBeInstanceOf($expected): Expectable
+    public function toBeInstanceOf($expected, string $message = ''): Expectable
     {
-        $this->expectThat(new ToBeInstanceOf($this->actual, $expected));
+        $this->expectThat(new ToBeInstanceOf($this->actual, $expected), $message);
 
         return $this;
     }
 
     /** @inheritDoc */
-    public function toThrow($exception): Expectable
+    public function toThrow($exception, string $message = ''): Expectable
     {
         $this->toBeCallable();
-        $this->expectThat(new ToThrow($this->actual, $exception));
+        $this->expectThat(new ToThrow($this->actual, $exception), $message);
 
         return $this;
     }
@@ -60,17 +60,17 @@ class Expect implements Expectable
     /**
      * @psalm-assert callable $this->actual
      */
-    public function toBeCallable(): Expectable
+    public function toBeCallable(string $message = ''): Expectable
     {
-        $this->expectThat(new ToBeCallable($this->actual));
+        $this->expectThat(new ToBeCallable($this->actual), $message);
 
         return $this;
     }
 
-    private function expectThat(Expectation $expectation): void
+    private function expectThat(Expectation $expectation, string $message = ''): void
     {
         if (! $expectation->matches()) {
-            throw new AssertionFailure($expectation->error());
+            throw new AssertionFailure($message ?:$expectation->error());
         }
     }
 }
